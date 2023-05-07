@@ -9,7 +9,6 @@ process.on("uncaughtException", (err) => {
 
 //Config
 require("dotenv").config();
-const DATABASE = process.env.DATABASE;
 
 //DB Connection
 mongoose

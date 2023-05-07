@@ -64,75 +64,10 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    friends: {
+    completedQuiz: {
       type: Array,
       default: [],
     },
-    following: {
-      type: Array,
-      default: [],
-    },
-    followers: {
-      type: Array,
-      default: [],
-    },
-    requests: {
-      type: Array,
-      default: [],
-    },
-    search: [
-      {
-        user: {
-          type: mongoose.Schema.ObjectId,
-          ref: "User",
-        },
-      },
-    ],
-    details: {
-      bio: {
-        type: String,
-      },
-      otherName: {
-        type: String,
-      },
-      job: {
-        type: String,
-      },
-      workplace: {
-        type: String,
-      },
-      highSchool: {
-        type: String,
-      },
-      college: {
-        type: String,
-      },
-      currentCity: {
-        type: String,
-      },
-      hometown: {
-        type: String,
-      },
-      relationship: {
-        type: String,
-        enum: ["Single", "In a relationship", "Married", "Divorced"],
-      },
-      instagram: {
-        type: String,
-      },
-    },
-    savedPosts: [
-      {
-        post: {
-          type: mongoose.Schema.ObjectId,
-          ref: "Post",
-        },
-        savedAt: {
-          type: Date,
-          default: new Date(),
-        },
-      },
-    ],
   },
   {
     timestamps: true,

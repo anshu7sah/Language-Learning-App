@@ -9,6 +9,7 @@ const {
 const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const sendToken = require("../utils/jwtToken");
+const catchAsyncError = require("../middleware/catchAsyncError");
 
 const register = async (req, res) => {
   try {
@@ -73,7 +74,10 @@ const register = async (req, res) => {
       { id: user._id.toString() },
       "30m"
     );
-    const url = `${process.env.Base_Url}/activate/${emailVerificationToken}`;
+
+    const url = `${req.protocol}://${req.get(
+      "host"
+    )}/activate/${emailVerificationToken}`;
     sendVerificationEmail(user.email, user.first_name, url);
 
     const message = "Register successfully! Please activate your account ";
@@ -136,8 +140,20 @@ const login = async (req, res) => {
   }
 };
 
+const logout = catchAsyncError(async (req, res, next) => {
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
+  res.status(200).json({
+    success: true,
+    message: "Logout successfully",
+  });
+});
+
 module.exports = {
   register,
   activateAccount,
   login,
+  logout,
 };
